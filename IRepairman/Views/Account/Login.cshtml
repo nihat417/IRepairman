@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LoginViewModel
+@{
     Layout = null;
 }
 
@@ -16,15 +17,15 @@
     <div class="container">
         <div class="forms-container">
             <div class="signin-signup">
-                <form action="#" class="sign-in-form">
+                <form asp-controller="Account" asp-action="Login" class="sign-in-form">
                     <h2 class="title">Sign in</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
+                        <input type="text" asp-for="Email" placeholder="Email" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" />
+                        <input type="password" asp-for="Password" placeholder="Password" />
                     </div>
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">Or Sign in with social platforms</p>
@@ -79,7 +80,7 @@
         const signUpButton = document.getElementById("sign-up-btn");
 
         signUpButton.addEventListener("click", function () {
-            window.location.href = "/Account/Register";
+            window.location.href = "/Account/ChooseRole";
         });
 
     </script>

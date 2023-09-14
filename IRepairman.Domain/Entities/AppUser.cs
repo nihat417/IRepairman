@@ -7,6 +7,7 @@ namespace IRepairman.Domain.Entities
 	{
 		public string FullName { get; set; } = null!;
 		public Role Role { get; set; }
+		public int Age { get; set; }
 		public DateTime CreatedTime { get; set; }
-	}
+    }
 }

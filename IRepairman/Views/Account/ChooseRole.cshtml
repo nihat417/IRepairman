@@ -1,0 +1,38 @@
+﻿
+@{
+    Layout = null;
+}
+<html>
+    <head>
+        <link href="~/css/chose.css" rel="stylesheet"/>
+    </head>
+    <body>
+    <div class="wrapper">
+        <input type="radio" name="select" id="option-1">
+        <input type="radio" name="select" id="option-2">
+        <label for="option-1" class="option option-1">
+            <div class="dot"></div>
+            <span>User</span>
+        </label>
+        <label for="option-2" class="option option-2">
+            <div class="dot"></div>
+            <span>Master</span>
+        </label>
+    </div>
+</body>
+</html>
+
+<script>
+    const radiobtns = document.getElementsByName("select");
+    radiobtns.forEach(function (radiobtns) {
+        radiobtns.addEventListener("change", function () {
+            if (radiobtns.checked) {
+                if (radiobtns.id === "option-1") {
+                    window.location.href = "/Account/RegisterUser";
+                } else if (radiobtns.id === "option-2") {
+                    window.location.href = "/Account/RegisterMaster";
+                }
+            }
+        })
+    })
+</script>

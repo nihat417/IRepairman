@@ -1,5 +1,6 @@
-﻿@{
-	Layout = null;
+﻿@model UserRegisterVM
+@{
+    Layout = null;
 }
 
 <html>
@@ -11,41 +12,35 @@
     <link rel="stylesheet" href="~/css/register.css" />
     <title>Sign in & Sign up Form</title>
 </head>
-	<body>
-        <div class="container">
-            <div class="forms-container">
-                <div class="signin-signup">
-                <form action="#" class="sign-in-form">
+<body>
+    <div class="container">
+        <div class="forms-container">
+            <div class="signin-signup">
+                <form asp-controller="Account" asp-action="RegisterUser" class="sign-in-form">
                     <h2 class="title">Sign up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" />
+                        <input type="text" asp-for="FullName" placeholder="Full Name" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text" asp-for="UserName" placeholder="Username" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" />
+                        <input type="email" asp-for="Email" placeholder="Email" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="number" asp-for="Age" min="16" placeholder="Age" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" />
+                        <input type="password" asp-for="Password" placeholder="Password" />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" />
-                    </div>
-                    <div style="display:flex;flex-direction:row;">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Default radio
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Default checked radio
-                            </label>
-                        </div>
+                        <input type="password" asp-for="ConfirmPassword" placeholder="Password" />
                     </div>
                     <input type="submit" class="btn" value="Sign up" />
                     <p class="social-text">Or Sign up with social platforms</p>
@@ -64,8 +59,8 @@
                         </a>
                     </div>
                 </form>
-                </div>
             </div>
+        </div>
 
         <div class="panels-container">
             <div class="panel left-panel">
@@ -80,14 +75,14 @@
                     </button>
                 </div>
             </div>
-            </div>
         </div>
-        <script>
+    </div>
+    <script>
         const signInButton = document.getElementById("sign-in-btn");
 
         signInButton.addEventListener("click", function () {
             window.location.href = "/Account/Login";
         });
-        </script>
-	</body>
+    </script>
+</body>
 </html>
