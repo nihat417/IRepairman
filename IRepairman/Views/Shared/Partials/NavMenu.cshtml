@@ -1,15 +1,24 @@
-﻿<nav class="navbar">
-    <div class="brand-title">Brand Name</div>
-    <a href="#" class="toggle-button">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </a>
-    <div class="navbar-links">
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </div>
+﻿<link rel="stylesheet" href="~/css/normalize.min.css"/>
+<link rel="stylesheet" href="~/css/nav-layout.min.css"/>
+<link rel="stylesheet" href="~/css/nav-core.min.css"/>
+<link rel="stylesheet" href="~/css/defaults.min.css"/>
+<script src="~/js/rem.min.js"></script>
+<nav class="nav">
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li class="nav-submenu">
+            <a href="#">Albums</a>
+            <ul>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a asp-controller="Account" asp-action="Logout">Log Out</a></li>
+            </ul>
+        </li>
+    </ul>
 </nav>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="~/js/nav.jquery.min.js"></script>
+<script>
+    $('.nav').nav();
+</script>

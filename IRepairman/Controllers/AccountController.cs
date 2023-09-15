@@ -36,7 +36,6 @@ namespace IRepairman.Controllers
 		[HttpGet]
 		public IActionResult RegisterUser() => View();
 
-
 		[HttpPost]
 		public async Task<IActionResult> RegisterUser(UserRegisterVM vm)
 		{
@@ -109,6 +108,13 @@ namespace IRepairman.Controllers
                     ModelState.AddModelError("login", "Incorrect username or password");
             }
             return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login", "Account", new { area = "" });
         }
 
 
