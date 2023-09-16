@@ -36,7 +36,21 @@ namespace IRepairman.Controllers
 		[HttpGet]
 		public IActionResult RegisterUser() => View();
 
-		[HttpPost]
+        [HttpGet]
+        public IActionResult ForgotPassword() => View();
+
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var viewModel = new ResetPasswordViewModel
+            {
+                Token = token,
+                Email = email
+            };
+            return View(viewModel);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> RegisterUser(UserRegisterVM vm)
 		{
 			if(ModelState.IsValid)
@@ -69,7 +83,13 @@ namespace IRepairman.Controllers
 			return View(vm);
 		}
 
-		[HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> RegisterMaster(MasterRegisterVM vm)
+        {
+            return View(vm);
+        }
+
+        [HttpPost]
 		public async Task<IActionResult> Login(LoginViewModel vm, string? ReturnUrl)
 		{
 			if(ModelState.IsValid)
@@ -117,6 +137,57 @@ namespace IRepairman.Controllers
             return RedirectToAction("Login", "Account", new { area = "" });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userRepository.GetUserByEmailAsync(vm.Email);
+                if (user != null)
+                {
+                    var token = await userRepository.GenerateToken(user);
+                    var newlink = Url.Action("ResetPassword", "Account", new { token, email = user.Email }, Request.Scheme);
+                    var message = new Message(new string[] { user.Email }, "Forgot password link", newlink!);
+                    emailService.SendEmail(message);
+                    return View("ForgotPasswordConfirmation");
+                }
+                ModelState.AddModelError(string.Empty, "User not found");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userRepository.GetUserByEmailAsync(vm.Email);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "User not found");
+                    return View(vm);
+                }
+
+                var result = await userRepository.ResetPasswordsAsync(user, vm.Token, vm.Password);
+
+                if (result.Succeeded)
+                {
+                    return View("ResetPasswordConfirmation");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(vm);
+        }
+
+
+        #region Email Config
 
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string token, string email)
@@ -133,5 +204,7 @@ namespace IRepairman.Controllers
             }
             return View();
         }
+
+        #endregion
     }
 }

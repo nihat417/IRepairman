@@ -1,14 +1,17 @@
 ﻿using IRepairman.Application.Interfaces;
 using IRepairman.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 public class UserRepository : IUserRepository 
 {
     private readonly UserManager<AppUser> userManager;
+    //private readonly RoleManager<AppUser> roleManager;
 
     public UserRepository(UserManager<AppUser> userManager)
     {
         this.userManager = userManager;
+        //this.roleManager = roleManager;
     }
 
     public async Task<bool> ConfirmEmailAsync(AppUser user, string token)
@@ -48,9 +51,14 @@ public class UserRepository : IUserRepository
         return await userManager.IsInRoleAsync(user, roleName);
     }
 
-    public async Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword)
+    public async Task<IdentityResult> ResetPasswordsAsync(AppUser user, string token, string newPassword)
     {
-        var result = await userManager.ResetPasswordAsync(user, token, newPassword);
-        return result.Succeeded;
+        return await userManager.ResetPasswordAsync(user, token, newPassword);
+        
+    }
+
+    public async Task<List<AppUser>> GetAllUsersAsync()
+    {
+        return await userManager.Users.ToListAsync();
     }
 }

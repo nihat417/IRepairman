@@ -1,4 +1,5 @@
 ﻿using IRepairman.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace IRepairman.Application.Interfaces
 {
@@ -8,9 +9,10 @@ namespace IRepairman.Application.Interfaces
         Task<AppUser?> GetUserByEmailAsync(string email);
         Task<bool> IsEmailConfirmedAsync(AppUser user);
         Task<bool> ConfirmEmailAsync(AppUser user, string token);
-        Task<bool> ResetPasswordAsync(AppUser user, string token, string newPassword);
+        Task<IdentityResult> ResetPasswordsAsync(AppUser user, string token, string newPassword);
         Task<bool> IsInRoleAsync(AppUser user, string roleName);
         Task<string> GenerateToken(AppUser user);
+        Task<List<AppUser>> GetAllUsersAsync();
     }
 
 }

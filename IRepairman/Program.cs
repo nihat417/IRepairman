@@ -1,6 +1,7 @@
 using IRepairman.Application.Interfaces;
 using IRepairman.Application.Models;
 using IRepairman.Domain.Entities;
+using IRepairman.Helpers;
 using IRepairman.Persistence.Datas;
 using IRepairman.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
@@ -14,12 +15,15 @@ builder.Services.AddDbContext<AppDbContext>(op => op.UseSqlServer(builder.Config
 
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 builder.Services.Configure<IdentityOptions>(op => op.SignIn.RequireConfirmedEmail = true);
-builder.Services.Configure<DataProtectionTokenProviderOptions>(op => op.TokenLifespan = TimeSpan.FromMinutes(1));
+builder.Services.Configure<DataProtectionTokenProviderOptions>(op => op.TokenLifespan = TimeSpan.FromHours(10));
 
 
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+
+builder.Services.AddSingleton(emailConfig);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+//builder.Services.AddScoped<>
 builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
 
@@ -54,6 +58,6 @@ app.UseEndpoints(endpoints =>
 		name: "default",
 		pattern: "{controller=Main}/{action=Index}/{id?}");
 });
-
+await SeedData.InitializeAsync(app.Services);
 
 app.Run();
