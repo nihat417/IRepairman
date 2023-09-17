@@ -3,6 +3,7 @@ using IRepairman.Application.Models;
 using IRepairman.Domain.Entities;
 using IRepairman.Helpers;
 using IRepairman.Persistence.Datas;
+using IRepairman.Persistence.Repository;
 using IRepairman.Persistence.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ var emailConfig = builder.Configuration.GetSection("EmailConfiguration").Get<Ema
 builder.Services.AddSingleton(emailConfig);
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-//builder.Services.AddScoped<>
+builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
 builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
 

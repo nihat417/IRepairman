@@ -86,6 +86,26 @@ namespace IRepairman.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterMaster(MasterRegisterVM vm)
         {
+            if(ModelState.IsValid)
+            {
+                var existingEmail = await userRepository.GetUserByEmailAsync(vm.Email);
+                if (existingEmail != null)
+                {
+                    ModelState.AddModelError("Email", "Already taken this email");
+                    return View(vm);
+                }
+                Master master = new()
+                {
+                    UserName = vm.UserName,
+                    FullName = vm.Email,
+                    Email = vm.Email,
+                    Age = vm.Age,
+                    CreatedTime = DateTime.Now,
+                    WorkExperience = vm.WorkExperience,
+                    About = vm.About,
+                    SelectedSpecializations = vm.SelectedSpecializations
+                };
+            }
             return View(vm);
         }
 

@@ -3,15 +3,13 @@ using IRepairman.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-public class UserRepository : IUserRepository 
+public class UserRepository : IUserRepository
 {
     private readonly UserManager<AppUser> userManager;
-    //private readonly RoleManager<AppUser> roleManager;
 
     public UserRepository(UserManager<AppUser> userManager)
     {
         this.userManager = userManager;
-        //this.roleManager = roleManager;
     }
 
     public async Task<bool> ConfirmEmailAsync(AppUser user, string token)
@@ -60,5 +58,20 @@ public class UserRepository : IUserRepository
     public async Task<List<AppUser>> GetAllUsersAsync()
     {
         return await userManager.Users.ToListAsync();
+    }
+
+    public async Task<AppUser?> GetUserByIdAsync(string id)
+    {
+        return await userManager.FindByIdAsync(id);
+    }
+
+    public async Task<IdentityResult> UpdateAsync(AppUser user)
+    {
+        if (user != null)
+        {
+            var result = await userManager.UpdateAsync(user);
+            return result;
+        }
+        return IdentityResult.Failed();
     }
 }

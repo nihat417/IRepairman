@@ -14,5 +14,6 @@ namespace IRepairman.Persistence.Datas
 
 		public DbSet<AppUser>users { get; set; }
 		public DbSet<Master>masters { get; set; }
+		public DbSet<Specialization> specializations { get; set; }
 	}
 }

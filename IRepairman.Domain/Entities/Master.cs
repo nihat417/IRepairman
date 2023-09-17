@@ -3,6 +3,8 @@
     public class Master:AppUser
     {
         public virtual List<Specialization> Specializations { get; set; } = null!;
-        public string? WorkExperience { get; set; }
+        public int WorkExperience { get; set; }
+        public virtual List<int> SelectedSpecializations { get; set; } = null!;
+        public string? About { get; set; }
     }
 }

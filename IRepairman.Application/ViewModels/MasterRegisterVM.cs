@@ -20,6 +20,10 @@ namespace IRepairman.Application.ViewModels
         [Required]
         [Range(18, 99)]
         public int Age { get; set; }
+
+        [MinLength(5)]
+        public string? About { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The Password and Confirm Password do not match")]
@@ -29,5 +33,8 @@ namespace IRepairman.Application.ViewModels
         [Required]
         [Range(0, int.MaxValue)]
         public int WorkExperience { get; set; }
+
+        [Required(ErrorMessage = "Select at least one specialization.")]
+        public List<int> SelectedSpecializations { get; set; } = null!;
     }
 }
