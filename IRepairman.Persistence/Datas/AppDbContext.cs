@@ -12,7 +12,16 @@ namespace IRepairman.Persistence.Datas
 			optionsBuilder.UseLazyLoadingProxies();
 		}
 
-		public DbSet<AppUser>users { get; set; }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+			builder.Entity<Specialization>().HasData(
+				new Specialization { Id = "1" , Name = "Engineer",CreatedDate = DateTime.Now },
+                new Specialization { Id = "2", Name = "blacksmith", CreatedDate = DateTime.Now }
+                );
+            base.OnModelCreating(builder);
+        }
+
+        public DbSet<AppUser>users { get; set; }
 		public DbSet<Master>masters { get; set; }
 		public DbSet<Specialization> specializations { get; set; }
 	}

@@ -10,6 +10,7 @@ namespace IRepairman.Application.Interfaces
         Task<AppUser?> GetUserByIdAsync(string id);
         Task<bool> IsEmailConfirmedAsync(AppUser user);
         Task<bool> ConfirmEmailAsync(AppUser user, string token);
+        Task<bool> AddUserToRoleAsync(AppUser user, string roleName);
         Task<IdentityResult> ResetPasswordsAsync(AppUser user, string token, string newPassword);
         Task<bool> IsInRoleAsync(AppUser user, string roleName);
         Task<string> GenerateToken(AppUser user);

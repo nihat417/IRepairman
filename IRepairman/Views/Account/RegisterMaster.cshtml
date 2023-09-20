@@ -17,7 +17,7 @@
         <div class="container">
             <div class="forms-container">
                 <div class="signin-signup">
-                <form asp-controller="Account" asp-action="RegisterMaster" class="sign-in-form">
+                <form asp-controller="Account" asp-action="RegisterMaster" method="post" class="sign-in-form" enctype="multipart/form-data">
                     <h2 class="title">Sign up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
@@ -34,6 +34,10 @@
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
                         <input type="number" min="18" asp-for="Age" placeholder="Age" />
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <select asp-for="SpecializationId" asp-items="@ViewBag.Specials">select spec</select>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>

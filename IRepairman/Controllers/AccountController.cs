@@ -4,6 +4,7 @@ using IRepairman.Application.ViewModels;
 using IRepairman.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IRepairman.Controllers
 {
@@ -12,12 +13,14 @@ namespace IRepairman.Controllers
 		private readonly IUserRepository userRepository;
 		private readonly IEmailService emailService;
 		private readonly SignInManager<AppUser> signInManager;
+        private readonly ISpecializationRepository specializationRepository;
 
-        public AccountController(IUserRepository userRepository, IEmailService emailService, SignInManager<AppUser> signInManager)
+        public AccountController(IUserRepository userRepository, IEmailService emailService, SignInManager<AppUser> signInManager, ISpecializationRepository specializationRepository)
         {
             this.userRepository = userRepository;
             this.emailService = emailService;
             this.signInManager = signInManager;
+            this.specializationRepository = specializationRepository;
         }
 
         [HttpGet]
@@ -31,7 +34,12 @@ namespace IRepairman.Controllers
 		public IActionResult ChooseRole() => View();
 
 		[HttpGet]
-		public IActionResult RegisterMaster() => View();
+		public async Task<IActionResult> RegisterMaster()
+        {
+            var specializations = await specializationRepository.GetAllSpecializationsAsync();
+            ViewBag.Specials = new SelectList(specializations, "Id", "Name");
+            return View();
+        }
 		
 		[HttpGet]
 		public IActionResult RegisterUser() => View();
@@ -56,7 +64,7 @@ namespace IRepairman.Controllers
 			if(ModelState.IsValid)
 			{
 				var existingEmail = await userRepository.GetUserByEmailAsync(vm.Email);
-				if(existingEmail != null)
+                if (existingEmail != null)
 				{
                     ModelState.AddModelError("Email", "Already taken this email");
                     return View(vm);
@@ -80,7 +88,7 @@ namespace IRepairman.Controllers
                     return View("RegisterFinish", nwvm);
                 }
 			}
-			return View(vm);
+            return View(vm);
 		}
 
         [HttpPost]
@@ -103,9 +111,28 @@ namespace IRepairman.Controllers
                     CreatedTime = DateTime.Now,
                     WorkExperience = vm.WorkExperience,
                     About = vm.About,
-                    SelectedSpecializations = vm.SelectedSpecializations
+                    SpecializationId=vm.SpecializationId,
+                    Role =Domain.Enums.Role.Master
                 };
+                var result = await userRepository.CreateUserAsync(master, vm.Password);
+                if (result)
+                {
+                    var addToRoleResult = await userRepository.AddUserToRoleAsync(master, "Master");
+                    if (!addToRoleResult)
+                    {
+                        ModelState.AddModelError("Role", "Failed to assign the 'Master' role.");
+                        return View(vm);
+                    }
+                    var token = await userRepository.GenerateToken(master);
+                    var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = master.Email }, Request.Scheme);
+                    var message = new Message(new string[] { master.Email }, "Confirmation Email Link", confirmationLink!);
+                    emailService.SendEmail(message);
+                    var nwvm = new MasterRegisterVM { UserName = master.UserName };
+                    return View("RegisterFinish", nwvm);
+                }
             }
+            var specializations = await specializationRepository.GetAllSpecializationsAsync();
+            ViewBag.Specials = new SelectList(specializations, "Id", "Name");
             return View(vm);
         }
 

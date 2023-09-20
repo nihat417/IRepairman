@@ -13,9 +13,15 @@ namespace IRepairman.Helpers
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                if (!await roleManager.RoleExistsAsync("Admin"))
+                if (!await roleManager.RoleExistsAsync(Role.Admin.ToString()))
                 {
                     var result = await roleManager.CreateAsync(new IdentityRole(Role.Admin.ToString()));
+                    if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
+                }
+
+                if (!await roleManager.RoleExistsAsync(Role.Master.ToString()))
+                {
+                    var result = await roleManager.CreateAsync(new IdentityRole(Role.Master.ToString()));
                     if (!result.Succeeded) throw new Exception(result.Errors.First().Description);
                 }
 

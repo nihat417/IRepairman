@@ -74,4 +74,10 @@ public class UserRepository : IUserRepository
         }
         return IdentityResult.Failed();
     }
+
+    public async Task<bool> AddUserToRoleAsync(AppUser user, string roleName)
+    {
+        var result = await userManager.AddToRoleAsync(user, roleName);
+        return result.Succeeded;
+    }
 }
