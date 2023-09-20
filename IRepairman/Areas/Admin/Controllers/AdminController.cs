@@ -37,6 +37,16 @@ namespace IRepairman.Areas.Admin.Controllers
 			return View();
 		}
 
+        public async Task<IActionResult> DeleteSpecialization(string id)
+        {
+            if(string.IsNullOrEmpty(id))
+            {
+                return BadRequest("Invalid specialization ID");
+            }
+            await specializationRepository.DeleteSpecializationAsync(id);
+            return RedirectToAction("/Admin/Specializations");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Specializations(Specialization specialization)
         {
@@ -55,6 +65,7 @@ namespace IRepairman.Areas.Admin.Controllers
         	return BadRequest();
         }
 
+        #region User Control
         public async Task<IActionResult> LockUser(string Id)
         {
             var user = await userRepository.GetUserByIdAsync(Id);
@@ -76,5 +87,7 @@ namespace IRepairman.Areas.Admin.Controllers
             }
             return RedirectToAction("AdminPage");
         }
+
+        #endregion
     }
 }

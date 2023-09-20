@@ -16,12 +16,11 @@ namespace IRepairman.Persistence.Repository
 
         public async Task CreateSpecializationAsync(Specialization specialization)
         {
-            if(specialization != null)
+            if (specialization != null)
             {
                 await context.specializations.AddAsync(specialization);
                 await context.SaveChangesAsync();
             }
-            throw new ArgumentNullException(nameof(specialization));
         }
 
         public async Task DeleteSpecializationAsync(string id)
@@ -32,7 +31,6 @@ namespace IRepairman.Persistence.Repository
                 context.specializations.Remove(spec);
                 await context.SaveChangesAsync();
             }
-            throw new ArgumentNullException();
         }
 
         public async Task<IEnumerable<Specialization>> GetAllSpecializationsAsync()
@@ -63,7 +61,6 @@ namespace IRepairman.Persistence.Repository
                 context.specializations.Update(specialization);
                 await context.SaveChangesAsync();
             }
-            throw new NotImplementedException();
         }
     }
 
