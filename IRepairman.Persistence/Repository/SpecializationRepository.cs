@@ -54,11 +54,12 @@ namespace IRepairman.Persistence.Repository
             return await context.specializations.FindAsync(name);
         }
 
-        public async Task UpdateSpecializationAsync(Specialization specialization)
+        public async Task UpdateSpecializationAsync(string id)
         {
-            if(specialization != null)
+            var res = await context.specializations.FindAsync(id);
+            if(res != null)
             {
-                context.specializations.Update(specialization);
+                context.specializations.Update(res);
                 await context.SaveChangesAsync();
             }
         }

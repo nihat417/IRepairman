@@ -44,7 +44,7 @@ namespace IRepairman.Areas.Admin.Controllers
                 return BadRequest("Invalid specialization ID");
             }
             await specializationRepository.DeleteSpecializationAsync(id);
-            return RedirectToAction("/Admin/Specializations");
+            return RedirectToAction("Specializations");
         }
 
         [HttpPost]
@@ -63,6 +63,17 @@ namespace IRepairman.Areas.Admin.Controllers
                 return RedirectToAction("Specializations");
         	}
         	return BadRequest();
+        }
+
+       
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateSpecializations(string id)
+        {
+            if(id != null) 
+                await specializationRepository.UpdateSpecializationAsync(id);
+            return PartialView();
         }
 
         #region User Control

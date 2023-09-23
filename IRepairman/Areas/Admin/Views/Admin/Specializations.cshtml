@@ -45,7 +45,7 @@
                             <td>@spec.Id</td>
                             <td>@spec.Name</td>
                             <td>@spec.CreatedDate</td>
-                            <td><a type="button" class="btn btn-warning m-2" href="">Update</a></td>
+                            <td><a type="button" class="btn btn-warning m-2" id=specUpdate>Update</a></td>
                             <td><a class="btn btn-danger rounded-pill m-2" href="@Url.Action("DeleteSpecialization","Admin",new { area = "Admin" , id=spec.Id })">Delete</a></td>
                         </tr>
                     }

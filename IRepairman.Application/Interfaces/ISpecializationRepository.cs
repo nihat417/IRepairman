@@ -7,7 +7,7 @@ namespace IRepairman.Application.Interfaces
         Task<IEnumerable<Specialization>> GetAllSpecializationsAsync();
         Task<Specialization> GetSpecializationByIdAsync(string id);
         Task<Specialization> GetSpecializationByNameAsync(string name);
-        Task UpdateSpecializationAsync(Specialization specialization);
+        Task UpdateSpecializationAsync(string id);
         Task DeleteSpecializationAsync(string id);
         Task CreateSpecializationAsync(Specialization specialization);
     }
