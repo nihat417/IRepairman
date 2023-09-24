@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a href="#!" class="pop-search"><i class="feather icon-search"></i></a>
+                <a href="#!" class="pop-search"><i class="fas fa-search"></i></a>
                 <div class="search-bar">
                     <input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
                     <button type="button" class="close" aria-label="Close">
@@ -28,7 +28,7 @@
                     </a>
                     <div class="dropdown-menu profile-notification ">
                         <ul class="pro-body">
-                            <li><a href="user-profile.html" class="dropdown-item"><i class="fas fa-circle"></i> Profile</a></li>
+                            <li><a href="user-profile.html" class="dropdown-item"><i class="fa-regular fa-user"></i> Profile</a></li>
                             <li><a href="email_inbox.html" class="dropdown-item"><i class="fas fa-circle"></i> My Messages</a></li>
                             <li><a href="auth-signin.html" class="dropdown-item"><i class="fas fa-circle"></i> Lock Screen</a></li>
                         </ul>
@@ -93,7 +93,7 @@
             <li>
                 <div class="dropdown">
                     <a class="dropdown-toggle" href="#" data-toggle="dropdown">
-                        <i class="icon feather icon-bell"></i>
+                        <i class="far fa-bell"></i>
                         <span class="badge badge-pill badge-danger">5</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right notification">
@@ -112,7 +112,7 @@
                                 <div class="media">
                                     <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
                                     <div class="media-body">
-                                        <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
+                                        <p><strong>@User!.Identity!.Name</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span></p>
                                         <p>New ticket Added</p>
                                     </div>
                                 </div>
@@ -157,20 +157,19 @@
             <li>
                 <div class="dropdown drp-user">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="feather icon-user"></i>
+                        <i class="far fa-user"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-notification">
                         <div class="pro-head">
-                            <img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
-                            <a href="auth-signin.html" class="dud-logout" title="Logout">
-                                <i class="feather icon-log-out"></i>
+                            <img src="@ViewBag.ImageUrl" class="img-radius" alt="User-Profile-Image">
+                            <span>@User!.Identity!.Name</span>
+                            <a class="dud-logout" title="Logout" asp-action="Logout" asp-controller="Account">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </a>
-                        </div>
+                        </div>  
                         <ul class="pro-body">
-                            <li><a href="user-profile.html" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                            <li><a href="email_inbox.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                            <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+                            <li><a href="user-profile.html" class="dropdown-item"><i class="far fa-user"></i>Profile</a></li>
+                            <li><a href="email_inbox.html" class="dropdown-item"><i class="far fa-envelope"></i> My Messages</a></li>
                         </ul>
                     </div>
                 </div>

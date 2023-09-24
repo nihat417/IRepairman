@@ -152,9 +152,14 @@ namespace IRepairman.Controllers
 						if(user.LockoutEnabled == true)
 						{
                             var result = await signInManager.PasswordSignInAsync(user, vm.Password, vm.RememberMe, true);
+                            
 							if(result.Succeeded)
 							{
-                                if (await userRepository.IsInRoleAsync(user, "Admin"))
+								ViewBag.ImageUrl = string.IsNullOrEmpty(user.ImageUrl)
+			                    ? "/Images/adminphoto.jpg"
+			                    : user.ImageUrl;
+
+								if (await userRepository.IsInRoleAsync(user, "Admin"))
                                 {
                                     return Redirect("/foradmin");
                                 }

@@ -1,14 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IRepairman.Persistence.Datas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace IRepairman.Controllers
 {
 	[Authorize]
 	public class MainController : Controller
 	{
+		private readonly AppDbContext context;
+
+		public MainController(AppDbContext context)
+		{
+			this.context = context;
+		}
+
 		public IActionResult Index()
 		{
-			return View();
+			var masters = context.masters.ToList();
+			return View(masters);
 		}
 	}
 }

@@ -5,7 +5,7 @@
         public int WorkExperience { get; set; }
         public string? About { get; set; }
         public string? SpecializationId { get; set; } = null!;
-        //public virtual Specialization? Specialization { get; set; }
+        public virtual Specialization Specialization { get; set; } = null!;
         public virtual List<Specialization>? Specializations { get; set; }
     }
 }
