@@ -14,6 +14,12 @@ namespace IRepairman.Persistence.Datas
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+			builder.Entity<Master>()
+				.HasOne(m => m.Specialization)   
+				.WithMany(s => s.masters)        
+				.HasForeignKey(m => m.SpecializationId) 
+				.IsRequired();
+
 			builder.Entity<Specialization>().HasData(
 				new Specialization { Id = "1" , Name = "Engineer",CreatedDate = DateTime.Now },
                 new Specialization { Id = "2", Name = "blacksmith", CreatedDate = DateTime.Now }

@@ -8,7 +8,7 @@
 			<div class="card">
 				<img class="img-fluid card-img-top" src="@(!string.IsNullOrEmpty(users?.ImageUrl) ? users.ImageUrl : "/Images/adminphoto.jpg")" alt="Card image cap">
 				<div class="card-body">
-					<h5 class="card-title">@users!.Specializations</h5>
+					<h5 class="card-title">@users!.Specialization.Name</h5>
 					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 					<button class="btn  btn-primary">View More</button>
 					<button class="btn  btn-danger">Delete</button>

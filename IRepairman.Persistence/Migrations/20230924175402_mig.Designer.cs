@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRepairman.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230920154648_mig")]
+    [Migration("20230924175402_mig")]
     partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,11 +119,16 @@ namespace IRepairman.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("MasterId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MasterId");
 
                     b.ToTable("specializations");
 
@@ -131,30 +136,15 @@ namespace IRepairman.Persistence.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 9, 20, 19, 46, 48, 169, DateTimeKind.Local).AddTicks(4108),
+                            CreatedDate = new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4568),
                             Name = "Engineer"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 9, 20, 19, 46, 48, 169, DateTimeKind.Local).AddTicks(4117),
+                            CreatedDate = new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4577),
                             Name = "blacksmith"
                         });
-                });
-
-            modelBuilder.Entity("MasterSpecialization", b =>
-                {
-                    b.Property<string>("SpecializationsId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("mastersId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("SpecializationsId", "mastersId");
-
-                    b.HasIndex("mastersId");
-
-                    b.ToTable("MasterSpecialization");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -298,27 +288,22 @@ namespace IRepairman.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SpecializationId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("WorkExperience")
                         .HasColumnType("int");
 
+                    b.HasIndex("SpecializationId");
+
                     b.HasDiscriminator().HasValue("Master");
                 });
 
-            modelBuilder.Entity("MasterSpecialization", b =>
+            modelBuilder.Entity("IRepairman.Domain.Entities.Specialization", b =>
                 {
-                    b.HasOne("IRepairman.Domain.Entities.Specialization", null)
-                        .WithMany()
-                        .HasForeignKey("SpecializationsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("IRepairman.Domain.Entities.Master", null)
-                        .WithMany()
-                        .HasForeignKey("mastersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Specializations")
+                        .HasForeignKey("MasterId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,6 +355,27 @@ namespace IRepairman.Persistence.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("IRepairman.Domain.Entities.Master", b =>
+                {
+                    b.HasOne("IRepairman.Domain.Entities.Specialization", "Specialization")
+                        .WithMany("masters")
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Specialization");
+                });
+
+            modelBuilder.Entity("IRepairman.Domain.Entities.Specialization", b =>
+                {
+                    b.Navigation("masters");
+                });
+
+            modelBuilder.Entity("IRepairman.Domain.Entities.Master", b =>
+                {
+                    b.Navigation("Specializations");
                 });
 #pragma warning restore 612, 618
         }
