@@ -1,4 +1,5 @@
 ﻿using IRepairman.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
 namespace IRepairman.Application.ViewModels
@@ -34,5 +35,7 @@ namespace IRepairman.Application.ViewModels
         public int WorkExperience { get; set; }
 
         public string SpecializationId { get; set; } = null!;
+
+        public IFormFile? ImageUrl { get; set; }
     }
 }

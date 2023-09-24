@@ -22,34 +22,46 @@
                     <div class="input-field">
                         <i class="fas fa-user"></i>
                         <input type="text" asp-for="FullName" placeholder="Full Name" />
+                        <span asp-validation-for="FullName" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
                         <input type="text" asp-for="UserName" placeholder="Username" />
+                        <span asp-validation-for="UserName" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
                         <input type="email" asp-for="Email" placeholder="Email" />
+                        <span asp-validation-for="Email" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
                         <input type="number" min="18" asp-for="Age" placeholder="Age" />
+                        <span asp-validation-for="Age" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <select asp-for="SpecializationId" asp-items="@ViewBag.Specials">select spec</select>
+                        <span asp-validation-for="SpecializationId" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="number" min="0" asp-for="WorkExperience" placeholder="Age" />
+                        <input type="number" min="0" asp-for="WorkExperience" placeholder="Work Experience" />
+                        <span asp-validation-for="WorkExperience" class="fgred"></span>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-envelope"></i>
+                        <input type="file" asp-for="ImageUrl" /><br />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" asp-for="Password" placeholder="Password" />
+                        <span asp-validation-for="Password" class="fgred"></span>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
                         <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" />
+                        <span asp-validation-for="ConfirmPassword" class="fgred"></span>
                     </div>
                     <input type="submit" class="btn" value="Sign up" />
                 </form>

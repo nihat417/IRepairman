@@ -49,6 +49,18 @@ namespace IRepairman.Persistence.Repository
             throw new NotImplementedException();
         }
 
+        public async Task<Specialization> GetSpecializationByIdAsyncVm(Specialization specialization)
+        {
+            var spec= await context.specializations.FirstOrDefaultAsync(s=>s.Id==specialization.Id);
+            if (spec != null)
+            {
+                spec.Name = specialization.Name;
+                await context.SaveChangesAsync();
+                return spec;
+            }
+            throw new NotImplementedException();
+        }
+
         public async Task<Specialization> GetSpecializationByNameAsync(string name)
         {
             return await context.specializations.FindAsync(name);

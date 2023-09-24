@@ -2,6 +2,7 @@
 using IRepairman.Application.Models;
 using IRepairman.Application.ViewModels;
 using IRepairman.Domain.Entities;
+using IRepairman.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -84,7 +85,7 @@ namespace IRepairman.Controllers
                     var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, Request.Scheme);
                     var message = new Message(new string[] { user.Email }, "Confirmation Email Link", confirmationLink!);
                     emailService.SendEmail(message);
-                    var nwvm = new UserRegisterVM { UserName = user.UserName };//bax mastervm
+                    var nwvm = new UserRegisterVM { UserName = user.UserName };
                     return View("RegisterFinish", nwvm);
                 }
 			}
@@ -102,11 +103,13 @@ namespace IRepairman.Controllers
                     ModelState.AddModelError("Email", "Already taken this email");
                     return View(vm);
                 }
+                string path = (vm.ImageUrl != null) ? await UploadFileHelper.UploadFile(vm.ImageUrl) : "";
                 Master master = new()
                 {
                     UserName = vm.UserName,
                     FullName = vm.Email,
                     Email = vm.Email,
+                    ImageUrl = path,
                     Age = vm.Age,
                     CreatedTime = DateTime.Now,
                     WorkExperience = vm.WorkExperience,

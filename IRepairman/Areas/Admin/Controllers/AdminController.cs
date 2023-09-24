@@ -1,5 +1,4 @@
 ﻿using IRepairman.Application.Interfaces;
-using IRepairman.Application.ViewModels;
 using IRepairman.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IRepairman.Areas.Admin.Controllers
 {
-	[Area("Admin")]
+    [Area("Admin")]
 	[Authorize]
 	public class AdminController : Controller
 	{
@@ -63,17 +62,6 @@ namespace IRepairman.Areas.Admin.Controllers
                 return RedirectToAction("Specializations");
         	}
         	return BadRequest();
-        }
-
-       
-
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateSpecializations(string id)
-        {
-            if(id != null) 
-                await specializationRepository.UpdateSpecializationAsync(id);
-            return PartialView();
         }
 
         #region User Control

@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Master\Models\**" />
+    <Content Remove="Areas\Master\Models\**" />
+    <EmbeddedResource Remove="Areas\Master\Models\**" />
+    <None Remove="Areas\Master\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.22">
@@ -18,10 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IRepairman.Persistence\IRepairman.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Areas\Master\Models\" />
   </ItemGroup>
 
 </Project>
