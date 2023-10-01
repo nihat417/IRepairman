@@ -42,7 +42,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapHub<ChatHub>("/ChatHub");
+app.MapHub<ChatHub>("/chatHub");
 
 app.UseEndpoints(endpoints =>
 {
