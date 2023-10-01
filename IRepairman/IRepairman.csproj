@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="6.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.22" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.22">
@@ -25,6 +26,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IRepairman.Persistence\IRepairman.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Master\Views\Shared\" />
   </ItemGroup>
 
 </Project>

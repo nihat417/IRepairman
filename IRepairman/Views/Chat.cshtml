@@ -1,0 +1,41 @@
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<IRepairman.Domain.Entities.AppUser> UserManager
+
+<div class="col-lg-4 col-md-12">
+    <div class="card chat-card">
+        <!-- Здесь ваш код для заголовка чата -->
+
+        <div class="card-body">
+            @foreach (var message in Model)
+            {
+                <div class="row m-b-20 @(message.SenderId == UserManager.GetUserId(User) ? "send-chat" : "received-chat")">
+                    <div class="col @(message.SenderId == UserManager.GetUserId(User) ? "text-right" : "")">
+                        <div class="msg">
+                            <p class="m-b-0">@message.Content</p>
+                        </div>
+                        <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>@message.SentAt.ToString("hh:mm tt")</p>
+                    </div>
+                    <div class="col-auto @(message.SenderId == UserManager.GetUserId(User) ? "p-l-0" : "p-r-0")">
+                    </div>
+                </div>
+            }
+
+
+            <div class="input-group m-t-15">
+                <input type="text" id="messageInput" class="form-control" placeholder="Send message">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" onclick="sendMessage('@Model.FirstOrDefault()?.SenderId', '@Model.FirstOrDefault()?.ReceiverId')">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function sendMessage(senderId, receiverId) {
+        var content = $("#messageInput").val();
+        $.post("/Chat/SendMessage", { senderId: senderId, receiverId: receiverId, content: content }, function () {
+            // Обновите представление с новым сообщением
+            window.location.reload();
+        });
+    }
+</script>

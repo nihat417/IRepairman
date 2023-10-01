@@ -1,15 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using IRepairman.Persistence.Datas;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IRepairman.Areas.Master.Controllers
 {
 	[Area("Master")]
+	[Authorize(Roles = "Master")]
 	[Authorize]
 	public class MasterController : Controller
 	{
-		public IActionResult MasterPage()
+		private readonly AppDbContext appDbContext;
+		public MasterController(AppDbContext appDbContext)
+        {
+            this.appDbContext = appDbContext;
+        }
+
+        public IActionResult MasterPage()
 		{
-			return View();
+			var masters = appDbContext.masters.FirstOrDefault();
+			return View(masters);
 		}
 	}
 }

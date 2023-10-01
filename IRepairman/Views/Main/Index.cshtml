@@ -1,5 +1,14 @@
 ﻿@model List<Master>
 
+<style>
+	.card-text {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 200px;
+	}
+</style>
+
 <div class="col-xl-12">
 	<hr>
 	<div class="card-columns">
@@ -8,12 +17,14 @@
 			<div class="card">
 				<img class="img-fluid card-img-top" src="@(!string.IsNullOrEmpty(users?.ImageUrl) ? users.ImageUrl : "/Images/adminphoto.jpg")" alt="Card image cap">
 				<div class="card-body">
-					<h5 class="card-title">@users!.Specialization.Name</h5>
-					<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-					<button class="btn  btn-primary">View More</button>
-					<button class="btn  btn-danger">Delete</button>
+					<h5 class="card-title">Specialization : @users!.Specialization.Name</h5>
+					<h5 class="card-title">Experience: @users!.WorkExperience</h5>
+					<p class="card-text">@users!.About</p>
+					<a class="btn btn-primary" href="/Messages/Messages">Contact</a>
+					<button class="btn  btn-info">Info</button>
 				</div>
 			</div>
 		}
 	</div>
 </div>
+

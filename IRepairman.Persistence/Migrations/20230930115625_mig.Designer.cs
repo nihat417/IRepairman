@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IRepairman.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230924175402_mig")]
+    [Migration("20230930115625_mig")]
     partial class mig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -111,6 +111,38 @@ namespace IRepairman.Persistence.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
                 });
 
+            modelBuilder.Entity("IRepairman.Domain.Entities.MessageContact", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("messages");
+                });
+
             modelBuilder.Entity("IRepairman.Domain.Entities.Specialization", b =>
                 {
                     b.Property<string>("Id")
@@ -136,13 +168,13 @@ namespace IRepairman.Persistence.Migrations
                         new
                         {
                             Id = "1",
-                            CreatedDate = new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4568),
+                            CreatedDate = new DateTime(2023, 9, 30, 15, 56, 25, 175, DateTimeKind.Local).AddTicks(5688),
                             Name = "Engineer"
                         },
                         new
                         {
                             Id = "2",
-                            CreatedDate = new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4577),
+                            CreatedDate = new DateTime(2023, 9, 30, 15, 56, 25, 175, DateTimeKind.Local).AddTicks(5701),
                             Name = "blacksmith"
                         });
                 });
@@ -297,6 +329,25 @@ namespace IRepairman.Persistence.Migrations
                     b.HasIndex("SpecializationId");
 
                     b.HasDiscriminator().HasValue("Master");
+                });
+
+            modelBuilder.Entity("IRepairman.Domain.Entities.MessageContact", b =>
+                {
+                    b.HasOne("IRepairman.Domain.Entities.AppUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("IRepairman.Domain.Entities.AppUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("IRepairman.Domain.Entities.Specialization", b =>

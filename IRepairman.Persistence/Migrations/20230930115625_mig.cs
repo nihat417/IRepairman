@@ -146,6 +146,34 @@ namespace IRepairman.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "messages",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SentAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_messages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_messages_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "specializations",
                 columns: table => new
                 {
@@ -167,12 +195,12 @@ namespace IRepairman.Persistence.Migrations
             migrationBuilder.InsertData(
                 table: "specializations",
                 columns: new[] { "Id", "CreatedDate", "MasterId", "Name" },
-                values: new object[] { "1", new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4568), null, "Engineer" });
+                values: new object[] { "1", new DateTime(2023, 9, 30, 15, 56, 25, 175, DateTimeKind.Local).AddTicks(5688), null, "Engineer" });
 
             migrationBuilder.InsertData(
                 table: "specializations",
                 columns: new[] { "Id", "CreatedDate", "MasterId", "Name" },
-                values: new object[] { "2", new DateTime(2023, 9, 24, 21, 54, 2, 567, DateTimeKind.Local).AddTicks(4577), null, "blacksmith" });
+                values: new object[] { "2", new DateTime(2023, 9, 30, 15, 56, 25, 175, DateTimeKind.Local).AddTicks(5701), null, "blacksmith" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -217,6 +245,16 @@ namespace IRepairman.Persistence.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_messages_ReceiverId",
+                table: "messages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_messages_SenderId",
+                table: "messages",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_specializations_MasterId",
@@ -276,6 +314,9 @@ namespace IRepairman.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "messages");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

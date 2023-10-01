@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IRepairman.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-	[Authorize]
+	[Area("Admin")]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 		private readonly IUserRepository userRepository;

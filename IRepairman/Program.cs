@@ -5,6 +5,7 @@ using IRepairman.Helpers;
 using IRepairman.Persistence.Datas;
 using IRepairman.Persistence.Repository;
 using IRepairman.Persistence.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(op => op.UseSqlServer(builder.Configuration.GetConnectionString("default")));
-
+builder.Services.AddSignalR();
 builder.Services.AddIdentity<AppUser,IdentityRole>().AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 builder.Services.Configure<IdentityOptions>(op => op.SignIn.RequireConfirmedEmail = true);
 builder.Services.Configure<DataProtectionTokenProviderOptions>(op => op.TokenLifespan = TimeSpan.FromHours(10));
@@ -27,7 +28,6 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ISpecializationRepository, SpecializationRepository>();
 builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -42,6 +42,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.MapHub<ChatHub>("/ChatHub");
 
 app.UseEndpoints(endpoints =>
 {
@@ -58,6 +59,16 @@ app.UseEndpoints(endpoints =>
 	endpoints.MapControllerRoute(
 		name: "default",
 		pattern: "{controller=Main}/{action=Index}/{id?}");
+
+	endpoints.MapControllerRoute(
+		name: "chat",
+		pattern: "chat/{userId}",
+		defaults: new { controller = "Chat", action = "Index" });
+
+	endpoints.MapControllerRoute(
+		name: "messages",
+		pattern: "Messages/{action=Index}/{id?}",
+		defaults: new { controller = "Messages" });
 });
 await SeedData.InitializeAsync(app.Services);
 
