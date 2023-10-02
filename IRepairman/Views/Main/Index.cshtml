@@ -21,6 +21,10 @@
 					<h5 class="card-title">Experience: @users!.WorkExperience</h5>
 					<p class="card-text">@users!.About</p>
 					<a class="btn btn-primary" href="/Messages/Messages">Contact</a>
+					<form asp-action="AddFavorite" method="post">
+						<input type="hidden" name="id" value="@users.Id" />
+						<button type="submit" class="btn  btn-secondary">Add Favorite</button>
+					</form>
 					<button class="btn  btn-info">Info</button>
 				</div>
 			</div>
