@@ -6,6 +6,7 @@ using IRepairman.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Serilog;
 
 namespace IRepairman.Controllers
 {
@@ -79,7 +80,8 @@ namespace IRepairman.Controllers
 					CreatedTime = DateTime.Now,
 				};
 				var result = await userRepository.CreateUserAsync(user, vm.Password);
-                if(result)
+                Log.Information($"User {user} is created");
+                if (result)
 				{
 					var token = await userRepository.GenerateToken(user);
                     var confirmationLink = Url.Action("ConfirmEmail", "Account", new { token, email = user.Email }, Request.Scheme);
@@ -88,7 +90,8 @@ namespace IRepairman.Controllers
                     var nwvm = new UserRegisterVM { UserName = user.UserName };
                     return View("RegisterFinish", nwvm);
                 }
-			}
+            }
+            Log.Information("Not Valid Register for User");
             return View(vm);
 		}
 
@@ -117,6 +120,7 @@ namespace IRepairman.Controllers
                     SpecializationId=vm.SpecializationId,
                     Role =Domain.Enums.Role.Master
                 };
+                Log.Information($"Master {master} is created");
                 var result = await userRepository.CreateUserAsync(master, vm.Password);
                 if (result)
                 {
@@ -134,6 +138,7 @@ namespace IRepairman.Controllers
                     return View("RegisterFinish", nwvm);
                 }
             }
+            Log.Information("Not Valid Register for User");
             var specializations = await specializationRepository.GetAllSpecializationsAsync();
             ViewBag.Specials = new SelectList(specializations, "Id", "Name");
             return View(vm);
@@ -161,10 +166,12 @@ namespace IRepairman.Controllers
 
 								if (await userRepository.IsInRoleAsync(user, "Admin"))
                                 {
+                                    Log.Information($"{user} is Logged");
                                     return Redirect("/foradmin");
                                 }
                                 if (await userRepository.IsInRoleAsync(user, "Master"))
                                 {
+                                    Log.Information($"{user} is Logged");
                                     return Redirect("/formaster");
                                 }
                                 if (!string.IsNullOrWhiteSpace(ReturnUrl))

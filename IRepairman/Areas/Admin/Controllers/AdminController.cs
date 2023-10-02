@@ -3,6 +3,7 @@ using IRepairman.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace IRepairman.Areas.Admin.Controllers
 {
@@ -43,6 +44,7 @@ namespace IRepairman.Areas.Admin.Controllers
                 return BadRequest("Invalid specialization ID");
             }
             await specializationRepository.DeleteSpecializationAsync(id);
+            Log.Information($"Specialization with {id} deleted");
             return RedirectToAction("Specializations");
         }
 
@@ -59,6 +61,7 @@ namespace IRepairman.Areas.Admin.Controllers
 				}
 
                 await specializationRepository.CreateSpecializationAsync(specialization);
+                Log.Information($"{specialization} is created");
                 return RedirectToAction("Specializations");
         	}
         	return BadRequest();
