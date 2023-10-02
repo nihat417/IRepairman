@@ -36,29 +36,36 @@
 							<div class="form-group mb-3">
 								<input asp-for="FullName" type="text" class="form-control" id="Email" placeholder="Full Name">
 							</div>
+							<span asp-validation-for="FullName" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
 									<input asp-for="UserName" type="text" class="form-control" id="Email" placeholder="UserName">
 							</div>
+							<span asp-validation-for="UserName" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
 								<input asp-for="Email" type="email" class="form-control" id="Email" placeholder="Email address">
 							</div>
+							<span asp-validation-for="Email" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
-									<input asp-for="Age" min="18" type="number" class="form-control" id="Email" placeholder="Age">
+								<input asp-for="Age" min="18" type="number" class="form-control" id="Email" placeholder="Age">
 							</div>
+							<span asp-validation-for="Age" class="danger-text" style="color:red"></span>
 							<div class="custom-file">
 								<input asp-for="ImageUrl" type="file" class="custom-file-input" id="validatedCustomFile" required>
 								<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
 							</div>
+							<span asp-validation-for="ImageUrl" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
 									<input asp-for="Password" type="password" class="form-control" id="Email" placeholder="Password">
 							</div>
+							<span asp-validation-for="Password" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-4">
 									<input asp-for="ConfirmPassword" type="password" class="form-control" id="Password" placeholder="ConfirmPassword">
 							</div>
+							<span asp-validation-for="ConfirmPassword" class="danger-text" style="color:red"></span>
 							<button class="btn btn-block btn-primary mb-4">Signin</button>
 							<hr>
 							<p class="mb-2 text-muted">Forgot password? <a href="auth-reset-password.html" class="f-w-400">Reset</a></p>
-							<p class="mb-0 text-muted">Don’t have an account? <a href="/Account/Login" class="f-w-400">Signup</a></p>
+							<p class="mb-0 text-muted">Have an account? <a href="/Account/Login" class="f-w-400">Signup</a></p>
 						</div>
 					</form>
 				</div>

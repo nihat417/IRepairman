@@ -1,96 +1,101 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+﻿:root {
+    --accent: #04da97;
+    --border-width: 6px;
+    --border-radius: 55px;
+    --font-size: 30px;
 }
 
-html, body {
-    display: grid;
-    height: 100%;
-    place-items: center;
-    background: #0069d9;
-    font-family: 'Lato', sans-serif;
-}
-
-.wrapper {
-    display: inline-flex;
-    background: #fff;
-    height: 100px;
-    width: 400px;
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-evenly;
-    border-radius: 5px;
-    padding: 20px 15px;
-    box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+    margin: 0;
+    background-color: #333;
+    font-family: sans-serif;
 }
 
-    .wrapper .option {
-        background: #fff;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        margin: 0 10px;
-        border-radius: 5px;
+.container {
+    perspective: 800px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 30px;
+    background-color: #f3f3f3;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background-color: #4caf50;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+}
+
+
+.toggle {
+    position: relative;
+    border: solid var(--border-width) var(--accent);
+    border-radius: var(--border-radius);
+    transition: transform cubic-bezier(0, 0, 0.30, 2) .4s;
+    transform-style: preserve-3d;
+    perspective: 800px;
+}
+
+    .toggle > input[type="radio"] {
+        display: none;
+    }
+
+    .toggle > #choice1:checked ~ #flap {
+        transform: rotateY(-180deg);
+    }
+
+        .toggle > #choice1:checked ~ #flap > .content {
+            transform: rotateY(-180deg);
+        }
+
+    .toggle > #choice2:checked ~ #flap {
+        transform: rotateY(0deg);
+    }
+
+    .toggle > label {
+        display: inline-block;
+        min-width: 170px;
+        padding: 30px;
+        font-size: var(--font-size);
+        text-align: center;
+        color: var(--accent);
         cursor: pointer;
-        padding: 0 10px;
-        border: 2px solid lightgrey;
-        transition: all 0.3s ease;
     }
 
-        .wrapper .option .dot {
-            height: 20px;
-            width: 20px;
-            background: #d9d9d9;
-            border-radius: 50%;
-            position: relative;
-        }
-
-            .wrapper .option .dot::before {
-                position: absolute;
-                content: "";
-                top: 4px;
-                left: 4px;
-                width: 12px;
-                height: 12px;
-                background: #0069d9;
-                border-radius: 50%;
-                opacity: 0;
-                transform: scale(1.5);
-                transition: all 0.3s ease;
-            }
-
-input[type="radio"] {
-    display: none;
-}
-
-#option-1:checked:checked ~ .option-1,
-#option-2:checked:checked ~ .option-2 {
-    border-color: #0069d9;
-    background: #0069d9;
-}
-
-    #option-1:checked:checked ~ .option-1 .dot,
-    #option-2:checked:checked ~ .option-2 .dot {
-        background: #fff;
+    .toggle > label,
+    .toggle > #flap {
+        font-weight: bold;
+        text-transform: capitalize;
     }
 
-        #option-1:checked:checked ~ .option-1 .dot::before,
-        #option-2:checked:checked ~ .option-2 .dot::before {
-            opacity: 1;
-            transform: scale(1);
+    .toggle > #flap {
+        position: absolute;
+        top: calc( 0px - var(--border-width));
+        left: 50%;
+        height: calc(100% + var(--border-width) * 2);
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--font-size);
+        background-color: var(--accent);
+        border-top-right-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+        transform-style: preserve-3d;
+        transform-origin: left;
+        transition: transform cubic-bezier(0.4, 0, 0.2, 1) .5s;
+    }
+
+        .toggle > #flap > .content {
+            color: #333;
+            transition: transform 0s linear .25s;
+            transform-style: preserve-3d;
         }
-
-.wrapper .option span {
-    font-size: 20px;
-    color: #808080;
-}
-
-#option-1:checked:checked ~ .option-1 span,
-#option-2:checked:checked ~ .option-2 span {
-    color: #fff;
-}
