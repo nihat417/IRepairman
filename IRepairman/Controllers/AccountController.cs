@@ -71,12 +71,14 @@ namespace IRepairman.Controllers
                     ModelState.AddModelError("Email", "Already taken this email");
                     return View(vm);
                 }
-                AppUser user = new()
+				string path = (vm.ImageUrl != null) ? await UploadFileHelper.UploadFile(vm.ImageUrl) : "";
+				AppUser user = new()
 				{
 					FullName = vm.FullName,
 					UserName = vm.UserName,
 					Email = vm.Email,
 					Age = vm.Age,
+					ImageUrl = path,
 					CreatedTime = DateTime.Now,
 				};
 				var result = await userRepository.CreateUserAsync(user, vm.Password);
@@ -110,7 +112,7 @@ namespace IRepairman.Controllers
                 Master master = new()
                 {
                     UserName = vm.UserName,
-                    FullName = vm.Email,
+                    FullName = vm.FullName,
                     Email = vm.Email,
                     ImageUrl = path,
                     Age = vm.Age,

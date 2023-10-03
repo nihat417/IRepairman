@@ -34,19 +34,19 @@
 							<h4 class="mb-3 f-w-400">SignUP</h4>
 							<hr>
 							<div class="form-group mb-3">
-								<input asp-for="FullName" type="text" class="form-control" id="Email" placeholder="Full Name">
+								<input asp-for="FullName" type="text" class="form-control"  placeholder="Full Name">
 							</div>
 							<span asp-validation-for="FullName" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
-									<input asp-for="UserName" type="text" class="form-control" id="Email" placeholder="UserName">
+								<input asp-for="UserName" type="text" class="form-control"  placeholder="UserName">
 							</div>
 							<span asp-validation-for="UserName" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
-								<input asp-for="Email" type="email" class="form-control" id="Email" placeholder="Email address">
+								<input asp-for="Email" type="email" class="form-control"  placeholder="Email address">
 							</div>
 							<span asp-validation-for="Email" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
-								<input asp-for="Age" min="18" type="number" class="form-control" id="Email" placeholder="Age">
+								<input asp-for="Age" min="18" type="number" class="form-control"  placeholder="Age">
 							</div>
 							<span asp-validation-for="Age" class="danger-text" style="color:red"></span>
 							<div class="custom-file">
@@ -55,14 +55,14 @@
 							</div>
 							<span asp-validation-for="ImageUrl" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-3">
-									<input asp-for="Password" type="password" class="form-control" id="Email" placeholder="Password">
+								<input asp-for="Password" type="password" class="form-control"  placeholder="Password">
 							</div>
 							<span asp-validation-for="Password" class="danger-text" style="color:red"></span>
 							<div class="form-group mb-4">
-									<input asp-for="ConfirmPassword" type="password" class="form-control" id="Password" placeholder="ConfirmPassword">
+								<input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="ConfirmPassword">
 							</div>
 							<span asp-validation-for="ConfirmPassword" class="danger-text" style="color:red"></span>
-							<button class="btn btn-block btn-primary mb-4">Signin</button>
+							<button class="btn btn-block btn-primary mb-4">submit</button>
 							<hr>
 							<p class="mb-2 text-muted">Forgot password? <a href="auth-reset-password.html" class="f-w-400">Reset</a></p>
 							<p class="mb-0 text-muted">Have an account? <a href="/Account/Login" class="f-w-400">Signup</a></p>
@@ -79,9 +79,35 @@
 	<script src="/js/bootstrap.min.js"></script>
 
 	<script src="/js/pcoded.min.js"></script>
+	<script>
+		document.querySelector('form').addEventListener('submit', function (event) {
+			if (this.checkValidity()) {
+				var newButton = document.createElement('button');
+				newButton.classList.add('btn', 'btn-primary', 'm-2');
+				newButton.type = 'button';
+				newButton.disabled = true;
+				var spinner = document.createElement('span');
+				spinner.classList.add('spinner-border', 'spinner-border-sm');
+				spinner.setAttribute('role', 'status');
+				newButton.appendChild(spinner);
+				newButton.appendChild(document.createTextNode('Loading...'));
+				var parent = document.querySelector('.btn-primary').parentElement;
+				parent.replaceChild(newButton, document.querySelector('.btn-primary'));
+			} else {
+				event.preventDefault();
+			}
+		});
+		var inputElement = document.querySelector('input');
+		var validationMessageElement = document.getElementById('validation-message');
 
-
-
+		inputElement.addEventListener('input', function () {
+			if (inputElement.checkValidity()) {
+				validationMessageElement.textContent = '';
+			} else {
+				validationMessageElement.textContent = inputElement.validationMessage;
+			}
+		});
+	</script>
 </body>
 
 </html>

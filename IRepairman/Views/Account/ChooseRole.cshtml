@@ -18,22 +18,16 @@
             <label for="choice2" >Master</label>
 
         </form>
-
-        <div class="progress-bar-container">
-            <div class="progress-bar"></div>
-        </div>
     </div>
 </body>
 </html>
 
 <script>
     const radiobtns = document.getElementsByName("choice");
-    const progressBar = document.querySelector(".progress-bar");
 
     radiobtns.forEach(function (radiobtn) {
         radiobtn.addEventListener("change", function () {
             if (radiobtn.checked) {
-                progressBar.style.width = "0%"; // Сбросить прогрессбар при каждом изменении выбора
                 growProgressBar();
                 if (radiobtn.id === "choice1") {
                     window.location.href = "/Account/RegisterUser";

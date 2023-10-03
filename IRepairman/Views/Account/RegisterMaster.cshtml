@@ -78,7 +78,7 @@
 								<input asp-for="ConfirmPassword" type="password" class="form-control" id="Password" placeholder="ConfirmPassword">
 							</div>
 							<span asp-validation-for="ConfirmPassword" class="danger-text" style="color:red"></span>
-							<button class="btn btn-block btn-primary mb-4">Signin</button>
+							<button class="btn btn-block btn-primary mb-4">Submit</button>
 							<hr>
 							<p class="mb-0 text-muted">have an account? <a href="/Account/Login" class="f-w-400">Signup</a></p>
 						</div>
@@ -95,7 +95,35 @@
 
 	<script src="/js/pcoded.min.js"></script>
 
+	<script>
+		document.querySelector('form').addEventListener('submit', function (event) {
+			if (this.checkValidity()) {
+				var newButton = document.createElement('button');
+				newButton.classList.add('btn', 'btn-primary', 'm-2');
+				newButton.type = 'button';
+				newButton.disabled = true;
+				var spinner = document.createElement('span');
+				spinner.classList.add('spinner-border', 'spinner-border-sm');
+				spinner.setAttribute('role', 'status');
+				newButton.appendChild(spinner);
+				newButton.appendChild(document.createTextNode('Loading...'));
+				var parent = document.querySelector('.btn-primary').parentElement;
+				parent.replaceChild(newButton, document.querySelector('.btn-primary'));
+			} else {
+				event.preventDefault();
+			}
+		});
+		var inputElement = document.querySelector('input');
+		var validationMessageElement = document.getElementById('validation-message');
 
+		inputElement.addEventListener('input', function () {
+			if (inputElement.checkValidity()) {
+				validationMessageElement.textContent = '';
+			} else {
+				validationMessageElement.textContent = inputElement.validationMessage;
+			}
+		});
+	</script>
 
 </body>
 
