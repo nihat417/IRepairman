@@ -17,18 +17,21 @@
 			<div class="card">
 				<img class="img-fluid card-img-top" src="@(!string.IsNullOrEmpty(users?.ImageUrl) ? users.ImageUrl : "/Images/adminphoto.jpg")" alt="Card image cap">
 				<div class="card-body">
-					<h5 class="card-title">Specialization : @users!.Specialization.Name</h5>
-					<h5 class="card-title">Experience: @users!.WorkExperience</h5>
-					<p class="card-text">@users!.About</p>
-					<a class="btn btn-primary" href="/Messages/Messages">Contact</a>
-					<form asp-action="AddFavorite" method="post">
+					<h5 class="card-title" style="margin:10px">Specialization : @users!.Specialization.Name</h5>
+					<h5 class="card-title" style="margin:10px">FullName : @users!.FullName</h5>
+					<h5 class="card-title" style="margin:10px">Experience: @users!.WorkExperience</h5>
+					<p class="card-text" style="margin:10px"><b>About:</b> @users!.About</p>
+					<a class="btn btn-primary" href="/Messages/Messages" style="display:flex;flex-direction:column;margin:10px;">Contact</a>
+					<form asp-action="AddFavorite" method="post" style="display:flex;flex-direction:column;margin:10px">
 						<input type="hidden" name="id" value="@users.Id" />
 						<button type="submit" class="btn  btn-secondary">Add Favorite</button>
 					</form>
-					<button class="btn  btn-info">Info</button>
+					<a class="btn  btn-info" style="display:flex;flex-direction:column;margin:10px">Info</a>
 				</div>
+				
 			</div>
 		}
 	</div>
 </div>
+
 

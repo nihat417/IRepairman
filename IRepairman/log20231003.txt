@@ -30,3 +30,5 @@
 2023-10-03 18:01:56.564 +04:00 [INF] Not Valid Register for User
 2023-10-03 18:02:25.955 +04:00 [INF] Master Samir is created
 2023-10-03 18:02:53.071 +04:00 [INF] Samir is Logged
+2023-10-03 18:27:30.882 +04:00 [INF] Samir is Logged
+2023-10-03 18:30:45.925 +04:00 [INF] Samir is Logged

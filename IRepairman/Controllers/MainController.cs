@@ -39,8 +39,7 @@ namespace IRepairman.Controllers
 			var masters = context.masters.Find(id);
 			if (masters != null)
 			{
-				var favoriteMasters = HttpContext.Session.Get<List<string>>("FavoriteMasters") ?? new List<string>();
-
+				var favoriteMasters = HttpContext.Session.Get<List<object>>("FavoriteMasters") ?? new List<object>();
 				favoriteMasters.Add(id);
 
 				HttpContext.Session.Set("FavoriteMasters", favoriteMasters);

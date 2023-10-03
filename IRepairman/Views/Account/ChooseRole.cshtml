@@ -37,17 +37,4 @@
             }
         });
     });
-
-    function growProgressBar() {
-        let width = 0;
-        const interval = setInterval(function () {
-            if (width >= 100) {
-                clearInterval(interval);
-            } else {
-                width+=20;
-                progressBar.style.width = width + "%";
-            }
-        }, 1); // Каждые 10 миллисекунд увеличиваем прогрессбар на 1%
-    }
-
 </script>

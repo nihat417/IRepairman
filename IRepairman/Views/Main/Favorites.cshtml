@@ -3,7 +3,7 @@
 <h1>Favorites</h1>
 
 <div class="col-md-12">
-    <div class="card table-card">
+    <div class="card">
         <div class="card-header">
             <h5>Projects</h5>
             <div class="card-header-right">
@@ -20,47 +20,27 @@
                 </div>
             </div>
         </div>
-        <div class="card-body p-0">
+        <div class="card-body table-border-style">
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>
-                                <div class="chk-option">
-                                    <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label"></span>
-                                    </label>
-                                </div>
-                                Assigned
-                            </th>
+                            <th>First Name</th>
+                            <th>Age</th>
                             <th>Work Experience</th>
-                            <th class="text-right">Priority</th>
+                            <th>Specializations</th>
                         </tr>
                     </thead>
                     @foreach (var master in Model)
                     {
                         <tbody>
-                        <tr>
-                            <td>
-                                <div class="chk-option">
-                                    <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                        <input type="checkbox" class="custom-control-input">
-                                        <span class="custom-control-label"></span>
-                                    </label>
-                                </div>
-                                <div class="d-inline-block align-middle">
-                                        <img src="@(!string.IsNullOrEmpty(master?.ImageUrl) ? master.ImageUrl : "/Images/adminphoto.jpg")" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                    <div class="d-inline-block">
-                                        <h6>@master!.FullName</h6>
-                                        <p class="text-muted m-b-0">@master.Age</p>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>@master.WorkExperience</td>
-                            <td class="text-right"><label class="badge badge-light-danger">Low</label></td>
-                        </tr>
-                    </tbody>
+                            <tr>
+                                <td>@master.FullName</td>
+                                <td>@master.Age</td>
+                                <td>@master.WorkExperience</td>
+                                <td>@master.Specialization.Name</td>
+                            </tr>
+                        </tbody>
                     }
                 </table>
             </div>

@@ -2,7 +2,6 @@
     <div class="m-header">
         <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
         <a href="/" class="b-brand">
-            <!-- ========   change your logo hear   ============ -->
             <img src="~/Images/logo.png" alt="" class="logo">
             <img src="~/Images/logo-icon.png" alt="" class="logo-thumb">
         </a>
@@ -15,7 +14,7 @@
             <li class="nav-item">
                 <a href="#!" class="pop-search"><i class="fas fa-search"></i></a>
                 <div class="search-bar">
-                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search hear">
+                    <input type="text" class="form-control border-0 shadow-none" id="cardColumnsSearch" placeholder="Search hear">
                     <button type="button" class="close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -129,24 +128,6 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="notification">
-                                <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-1.jpg" alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span></p>
-                                        <p>currently login</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="notification">
-                                <div class="media">
-                                    <img class="img-radius" src="assets/images/user/avatar-2.jpg" alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                        <p>Prchace New Theme and make payment</p>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                         <div class="noti-footer">
                             <a href="#!">show all</a>
@@ -177,3 +158,16 @@
         </ul>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#cardColumnsSearch").on("input", function () {
+            var input = $(this).val().toLowerCase();
+            $(".card-columns .card").hide().filter(function () {
+                return $(this).text().toLowerCase().includes(input);
+            }).show();
+        });
+    });
+
+</script>
