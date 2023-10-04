@@ -1,0 +1,5 @@
+2023-10-04 16:14:08.337 +04:00 [INF] Not Valid Register for User
+2023-10-04 16:14:27.873 +04:00 [INF] User Nihat is created
+2023-10-04 16:15:46.879 +04:00 [INF] Master Samir is created
+2023-10-04 16:16:07.053 +04:00 [INF] Samir is Logged
+2023-10-04 17:12:24.890 +04:00 [INF] Samir is Logged

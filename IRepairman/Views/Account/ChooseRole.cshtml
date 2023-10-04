@@ -28,7 +28,6 @@
     radiobtns.forEach(function (radiobtn) {
         radiobtn.addEventListener("change", function () {
             if (radiobtn.checked) {
-                growProgressBar();
                 if (radiobtn.id === "choice1") {
                     window.location.href = "/Account/RegisterUser";
                 } else if (radiobtn.id === "choice2") {
